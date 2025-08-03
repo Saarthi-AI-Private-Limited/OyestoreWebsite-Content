@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import video from "../assets/OyestoreHero.mov";
 import logo from "../assets/oyestorelogo.png";
 import chikmagalur from "../assets/chikmagalur.jpeg";
@@ -22,6 +23,7 @@ export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const mobileNavRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => setCurrentIndex((prev) => (prev + 1) % destinations.length), 4000);
@@ -78,15 +80,38 @@ export default function HeroSection() {
 
           {/* Desktop Nav Links */}
           <ul className="hidden md:flex gap-4 sm:gap-6 text-xs sm:text-sm font-medium tracking-wide">
-            <li><a href="#" className="hover:text-gray-300">Home</a></li>
-            <li><a href="#" className="hover:text-gray-300">About Us</a></li>
-            <li><a href="#" className="hover:text-gray-300">Gallery</a></li>
-            <li><a href="#" className="hover:text-gray-300">Trips</a></li>
-            <li><a href="#" className="hover:text-gray-300">Contact</a></li>
+            <li>
+              <button className="hover:text-gray-300 bg-transparent border-none p-0" onClick={() => navigate("/")}>
+                Home
+              </button>
+            </li>
+            <li>
+              <button className="hover:text-gray-300 bg-transparent border-none p-0" onClick={() => navigate("/about")}>
+                About Us
+              </button>
+            </li>
+            <li>
+              <button className="hover:text-gray-300 bg-transparent border-none p-0" onClick={() => navigate("/gallery")}>
+                Gallery
+              </button>
+            </li>
+            <li>
+              <button className="hover:text-gray-300 bg-transparent border-none p-0" onClick={() => navigate("/trips")}>
+                Trips
+              </button>
+            </li>
+            <li>
+              <button className="hover:text-gray-300 bg-transparent border-none p-0" onClick={() => navigate("/contact")}>
+                Contact
+              </button>
+            </li>
           </ul>
 
           {/* Desktop Join Button */}
-          <Button className="hidden md:flex bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-1.5 items-center gap-2 text-sm">
+          <Button
+            className="hidden md:flex bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-1.5 items-center gap-2 text-sm"
+            onClick={() => navigate("/join")}
+          >
             <User className="w-4 h-4" />
             Join Traveller
           </Button>
@@ -97,33 +122,66 @@ export default function HeroSection() {
           <div ref={mobileNavRef} className="md:hidden absolute top-full left-0 right-0 bg-[#1E293B]/90 backdrop-blur z-10 rounded-b-2xl px-6 py-4 shadow-lg animate-slide-down">
             <ul className="flex flex-col gap-5 text-base font-semibold">
               <li>
-                <a href="#" onClick={() => setMobileNavOpen(false)} className="hover:text-blue-400">
+                <button
+                  className="hover:text-blue-400 bg-transparent border-none p-0 w-full text-left"
+                  onClick={() => {
+                    setMobileNavOpen(false);
+                    navigate("/");
+                  }}
+                >
                   Home
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" onClick={() => setMobileNavOpen(false)} className="hover:text-blue-400">
+                <button
+                  className="hover:text-blue-400 bg-transparent border-none p-0 w-full text-left"
+                  onClick={() => {
+                    setMobileNavOpen(false);
+                    navigate("/about");
+                  }}
+                >
                   About Us
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" onClick={() => setMobileNavOpen(false)} className="hover:text-blue-400">
+                <button
+                  className="hover:text-blue-400 bg-transparent border-none p-0 w-full text-left"
+                  onClick={() => {
+                    setMobileNavOpen(false);
+                    navigate("/gallery");
+                  }}
+                >
                   Gallery
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" onClick={() => setMobileNavOpen(false)} className="hover:text-blue-400">
+                <button
+                  className="hover:text-blue-400 bg-transparent border-none p-0 w-full text-left"
+                  onClick={() => {
+                    setMobileNavOpen(false);
+                    navigate("/trips");
+                  }}
+                >
                   Trips
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" onClick={() => setMobileNavOpen(false)} className="hover:text-blue-400">
+                <button
+                  className="hover:text-blue-400 bg-transparent border-none p-0 w-full text-left"
+                  onClick={() => {
+                    setMobileNavOpen(false);
+                    navigate("/contact");
+                  }}
+                >
                   Contact
-                </a>
+                </button>
               </li>
               <Button
                 className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-1.5 flex items-center gap-2 text-sm w-full justify-center"
-                onClick={() => setMobileNavOpen(false)}
+                onClick={() => {
+                  setMobileNavOpen(false);
+                  navigate("/join");
+                }}
               >
                 <User className="w-4 h-4" />
                 Join Traveller
@@ -176,7 +234,11 @@ export default function HeroSection() {
             </div>
             <h3 className="text-xs sm:text-sm font-semibold mb-1 truncate">{currentDestination.title}</h3>
             <p className="text-xs mb-2 line-clamp-2">{currentDestination.description}</p>
-            <Button variant="ghost" className="self-end text-white hover:bg-white/10 p-0 h-auto">
+            <Button
+              variant="ghost"
+              className="self-end text-white hover:bg-white/10 p-0 h-auto"
+              onClick={() => navigate("/trips")}
+            >
               <ArrowRight className="w-4 h-4" />
             </Button>
           </Card>
