@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import discoverWorld from "../assets/discoverMap.png";
 import chikmagalur from "../assets/chikmagalur.jpeg";
 import coorg from "../assets/coorg.jpeg";
 import desserts from "../assets/deserts.jpeg";
@@ -45,6 +44,38 @@ const destinations = [
 ];
 
 export default function DestinationSlider() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
+  const handleFakePayment = (tripTitle) => {
+    const fakeOptions = {
+      key: "rzp_test_dummy", // Not real
+      amount: 50000,
+      currency: "INR",
+      name: "Oyestore",
+      description: `Demo Booking for ${tripTitle}`,
+      image: "https://yourdomain.com/logo.png",
+      handler: function () {
+        alert(`✅ Payment simulated successfully for "${tripTitle}"`);
+      },
+      prefill: {
+        name: "Test User",
+        email: "test@example.com",
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#EC4899",
+      },
+    };
+
+    const rzp = new window.Razorpay(fakeOptions);
+    rzp.open();
+  };
+
   const settings = {
     dots: true,
     infinite: true,
@@ -71,7 +102,6 @@ export default function DestinationSlider() {
 
   return (
     <>
-      {/* Slider Section */}
       <div className="bg-gradient-to-b from-[#334155] to-[#0f172a] py-16 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-pink-400 text-sm font-semibold uppercase mb-1">
@@ -85,15 +115,17 @@ export default function DestinationSlider() {
 
           <Slider {...settings}>
             {destinations.map((dest) => (
-              <div key={dest.title} className="px-4">
-                <div className="rounded-3xl overflow-hidden relative shadow-xl h-[200px] h-[650px] transition-transform duration-300 hover:scale-105 bg-black">
+              <div key={dest.title} className="px-4 mb-6">
+                <div className="rounded-3xl overflow-hidden relative shadow-xl h-[400px] sm:h-[500px] transition-transform duration-300 hover:scale-105 bg-black">
                   <img
                     src={dest.image}
                     alt={dest.title}
                     className="w-full h-full object-cover opacity-90"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-                    <h4 className="text-xl font-semibold mb-1">{dest.title}</h4>
+                    <h4 className="text-xl font-semibold mb-1">
+                      {dest.title}
+                    </h4>
                     <p className="text-sm text-gray-200 mb-1">
                       {dest.description}
                     </p>
@@ -102,22 +134,32 @@ export default function DestinationSlider() {
                     </span>
                   </div>
                 </div>
+
+                {/* Buttons Below Card */}
+                <div className="mt-4 flex justify-center gap-4">
+                  <a
+                    href={`https://wa.me/919999999999?text=Hi, I'm interested in the ${dest.title} trip!`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition"
+                  >
+                    WhatsApp
+                  </a>
+
+                  <button
+                    onClick={() => handleFakePayment(dest.title)}
+                    className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition"
+                  >
+                    Book Trip
+                  </button>
+                </div>
               </div>
             ))}
           </Slider>
         </div>
       </div>
 
-      {/* Discover World Section */}
-      <div className="w-full bg-gradient-to-b from-[#0f172a] via-[#1e293b] to-[#0b1320] py-8 px-0">
-        <img
-          src={discoverWorld}
-          alt="Discover the world through our eyes"
-          className="w-full h-auto object-cover opacity-90"
-        />
-      </div>
-
-      {/* Hike Background Section */}
+      {/* Bottom Banner Image */}
       <div className="w-full bg-gradient-to-b from-[#0f172a] via-[#1e293b] to-[#0b1320] py-8 px-0">
         <img
           src={hikebg}

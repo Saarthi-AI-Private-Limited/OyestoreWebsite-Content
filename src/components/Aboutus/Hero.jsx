@@ -135,7 +135,7 @@ export default function HeroSection() {
           {/* Desktop Join Button */}
           <Button
             className="hidden md:flex bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-1.5 items-center gap-2 text-sm"
-            onClick={() => handleNav("/join")}
+            onClick={() => handleNav("/contact")}
           >
             <User className="w-4 h-4" />
             Join Traveller

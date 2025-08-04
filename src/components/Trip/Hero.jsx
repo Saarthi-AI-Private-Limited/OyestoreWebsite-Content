@@ -203,10 +203,10 @@ export default function HeroSection() {
         {/* Hero Text */}
         <div className="flex-grow flex flex-col items-center justify-center text-center px-2 sm:px-4 mt-[-1.5rem] sm:mt-[-4rem] lg:mt-[-6rem]">
           <h1 className="text-white text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight drop-shadow-xl uppercase mb-2 sm:mb-3 leading-tight">
-            Contact Us
+            Upcoming Adventures
           </h1>
           <h2 className="text-white text-xs sm:text-sm md:text-base lg:text-lg font-light max-w-md sm:max-w-2xl drop-shadow-md">
-            Scroll Down to Contact us
+            Your Next Adventure Awaits
           </h2>
         </div>
       </div>
